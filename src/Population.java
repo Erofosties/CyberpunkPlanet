@@ -24,9 +24,10 @@ public class Population {
 		int total_produccion;
 		
 		//Constructor por defecto
-		public Population(int cantidad) {
+		public Population() {
 			personajes = new ArrayList<>();
 		}
+		
 		//Añadir pjs
 		public void addPjs(Personaje p)
 		{
@@ -41,6 +42,7 @@ public class Population {
 			}
 			updateStats();
 		}
+		
 		public ArrayList<Personaje> getPersonajes() {
 		    return personajes;
 		}
