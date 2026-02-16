@@ -13,11 +13,7 @@ public abstract class Personaje {
         this.nombre = name;
     }
 
-    public abstract int getProduccion() ;
-
-    /*public int getFelicidad() {
-        return felicidad;
-    }*/
+    public abstract int getProduccion();
 
     public String getNombre() {
         return nombre;

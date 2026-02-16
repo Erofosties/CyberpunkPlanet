@@ -1,19 +1,4 @@
-/*consultar la productividad de la población
-
-		aplicar decisiones que afecten a la felicidad
-
-		evitar valores fuera de rango
-		getProductivity()
-👉 devuelve un valor numérico que dependa de total y happiness
-
-increasePopulation(int amount)
-
-decreaseHappiness(int amount)
-
-increaseHappiness(int amount)
-La felicidad nunca puede ser < 0 ni > 100
-
-La población nunca puede ser negativa*/
+//Clase population, es la principal donde se guarda el array de personajes de todo tipo, metodos para añadir y borrar personajes.
 import java.util.ArrayList;
 
 import Personaje.Personaje;
@@ -23,7 +8,6 @@ public class Population {
 		private ArrayList<Personaje> personajes;
 		int total_produccion;
 		
-		//Constructor por defecto
 		public Population() {
 			personajes = new ArrayList<>();
 		}
@@ -50,12 +34,7 @@ public class Population {
 		
 		public void modifyProduccionTotal(int mod) {
 			total_produccion += mod;
-	    }
-		
-		//gets total productivity
-		/*public int getProductivity() {
-		    return (int)Math.round(total_produccion / (double) personajes.size());
-		}*/
+	    }				
 				
 		private void updateStats() {
 	        int sumaProduccion = 0;
