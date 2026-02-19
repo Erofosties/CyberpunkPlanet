@@ -20,10 +20,11 @@ public class Recursos {
     private int Nanocura;//cura con nanobots programados
     private int Somnex;//fuerza el criosueño
 
+    private int Energia;
     private int ptosExploracio;
 	public enum ResourceType {
 	    NEOCROMO,UMBRIUM,SYNTHERIUM,HEXALIUM,VOIDIUM,KROMAFRUTA,ALGACARNE,NEUROTRIGO,
-	    RATAX,FLORSOMNIO,REFLEXA,NANOCURA,SOMNEX,EXPLORACION}
+	    RATAX,FLORSOMNIO,REFLEXA,NANOCURA,SOMNEX,EXPLORACION,ENERGIA}
 	
 	
 	public void add(ResourceType type, int amount) {
@@ -45,6 +46,7 @@ public class Recursos {
 	        case SOMNEX -> Somnex += amount;
 
 	        case EXPLORACION -> ptosExploracio += amount;
+	        case ENERGIA -> Energia+=amount;
 	    }
 	}
 	public void verRecursos() {
@@ -70,6 +72,7 @@ public class Recursos {
 
 	    System.out.println("\n--- EXPLORACIÓN ---");
 	    System.out.println("Puntos de exploración: " + ptosExploracio);
+	    System.out.println("Energia: "+ Energia);
 	}
 	
 	public int getCantidad(ResourceType type) {
@@ -93,6 +96,7 @@ public class Recursos {
 	        case SOMNEX -> Somnex;
 
 	        case EXPLORACION -> ptosExploracio;
+	        case ENERGIA -> Energia;
 	    };
 	}
 

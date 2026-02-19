@@ -5,6 +5,7 @@ import Personaje.Civil.Trabajador.Profession;
 import Personaje.Guerrero.Guerrero;
 import Personaje.Guerrero.Guerrero.Tipo;
 import bbdd.DatabaseConnection;
+import defensa.Defensas;
 import edificio.Edificio;
 import recursos.Recursos;
 import recursos.Recursos.ResourceType;
@@ -21,11 +22,13 @@ public class Colonia {
     private ArrayList<Personaje> poblacion;
     private ArrayList<Edificio> edificios;
     private Recursos recursos;
+    private Defensas defensa;
 
     public Colonia() {
         poblacion = new ArrayList<>();
         edificios = new ArrayList<>();
         recursos = new Recursos();
+        defensa = new Defensas();
     }
 
     // 🔹 POBLACIÓN
@@ -76,6 +79,11 @@ public class Colonia {
         for (Edificio e : edificios) {
             e.simularDia(recursos);
         }
+    }
+    
+    //SImular ataque
+    public void simularAtaque(int fuerzaEnemiga) {
+        defensa.recibirAtaque(fuerzaEnemiga);
     }
 
     // 🔹 SIMULAR UN DÍA COMPLETO

@@ -27,13 +27,19 @@ public class Edificio {
         // LABORATORIOS (FIXER)
         LAB_REFLEXA,
         LAB_NANOCURA,
-        LAB_SOMNEX
+        LAB_SOMNEX,
+        
+        //Energia
+        PLACA_SOLAR,
+        REACTOR_FUSION,
+        GENERADOR_NEON
     }
 
     private TipoEdificio tipo;
     private ResourceType recursoProduce;
     private int nivel;
     private int capacidad;
+    private int vidaEstructural;
 
     private ArrayList<Trabajador> trabajadores;
 
@@ -43,6 +49,7 @@ public class Edificio {
         this.capacidad = 5;
         this.trabajadores = new ArrayList<>();
         this.recursoProduce = mapTipoToRecurso(tipo);
+        this.vidaEstructural = 100;
     }
 
     private ResourceType mapTipoToRecurso(TipoEdificio tipo) {
@@ -66,6 +73,9 @@ public class Edificio {
             case LAB_REFLEXA -> ResourceType.REFLEXA;
             case LAB_NANOCURA -> ResourceType.NANOCURA;
             case LAB_SOMNEX -> ResourceType.SOMNEX;
+            //ENERGIA
+            
+            case PLACA_SOLAR, REACTOR_FUSION, GENERADOR_NEON -> ResourceType.ENERGIA;
         };
     }
 
@@ -77,7 +87,9 @@ public class Edificio {
 
     public int producir() {
         int total = 0;
-
+        double estado = vidaEstructural/100.0;
+        total = (int) Math.round(total*estado);
+        
         for (Trabajador t : trabajadores) {
             int base = t.getProduccion();
 
@@ -113,6 +125,9 @@ public class Edificio {
             case LAB_REFLEXA,
                  LAB_NANOCURA,
                  LAB_SOMNEX -> p == Profession.FIXER;
+                 
+            //ENERGIA
+            case PLACA_SOLAR, REACTOR_FUSION, GENERADOR_NEON -> p == Profession.TECHIES;
         };
     }
 
@@ -123,6 +138,24 @@ public class Edificio {
 
     public void subirNivel() {
         nivel++;
+    }
+    
+    public void recibirDaño(int daño) {
+    	vidaEstructural -= daño;
+    	if(vidaEstructural <0) vidaEstructural = 0;
+    }
+    
+    public void reparar() {
+    	int techiesAsignados = 0;
+    	
+    	for (Trabajador t : trabajadores) {
+    		if (t.getProfession() == Profession.TECHIES) {
+    			techiesAsignados++;
+    		}
+    	}
+    	vidaEstructural += techiesAsignados *5;
+    	
+    	if (vidaEstructural >100)vidaEstructural = 100;
     }
 
     public TipoEdificio getTipo() {

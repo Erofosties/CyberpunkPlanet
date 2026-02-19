@@ -55,6 +55,9 @@ public class GameMain {
         // 🔹 SIMULAR UN DÍA
         colonia.simularDia();
         colonia.guardarRecursosEnBD();
+        
+        //simular ataque
+        colonia.simularAtaque(500);
 
 
         // 🔹 MOSTRAR RECURSOS GENERADOS
