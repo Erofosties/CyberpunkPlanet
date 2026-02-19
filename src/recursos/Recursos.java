@@ -72,7 +72,29 @@ public class Recursos {
 	    System.out.println("Puntos de exploración: " + ptosExploracio);
 	}
 	
+	public int getCantidad(ResourceType type) {
 
+	    return switch (type) {
+
+	        case NEOCROMO -> Neocromo;
+	        case UMBRIUM -> Umbrium;
+	        case SYNTHERIUM -> Syntherium;
+	        case HEXALIUM -> Hexalium;
+	        case VOIDIUM -> Voidium;
+
+	        case KROMAFRUTA -> Kromafruta;
+	        case ALGACARNE -> Algacarne;
+	        case NEUROTRIGO -> Neurotrigo;
+	        case RATAX -> Ratax;
+	        case FLORSOMNIO -> FlorSomnio;
+
+	        case REFLEXA -> Reflexa;
+	        case NANOCURA -> Nanocura;
+	        case SOMNEX -> Somnex;
+
+	        case EXPLORACION -> ptosExploracio;
+	    };
+	}
 
 	
 }

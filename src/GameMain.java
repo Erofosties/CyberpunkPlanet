@@ -1,3 +1,4 @@
+import Personaje.Personaje;
 import Personaje.Civil.Trabajador;
 import Personaje.Civil.Trabajador.Profession;
 import Personaje.Guerrero.Guerrero;
@@ -11,48 +12,53 @@ public class GameMain {
 
         Colonia colonia = new Colonia();
 
-        // 🔹 CREAR TRABAJADORES
-        Trabajador minero1 = new Trabajador("Neo", 50, Profession.GRINDER);
-        Trabajador minero2 = new Trabajador("Axel", 50, Profession.GRINDER);
-        Trabajador agro1 = new Trabajador("Ivy", 50, Profession.AGROTECH);
-        Trabajador fixer1 = new Trabajador("Hex", 50, Profession.FIXER);
+     // Crear personajes manualmente
+        Trabajador t1 = new Trabajador("Neo", 50, Profession.GRINDER);
+        Trabajador t2 = new Trabajador("Ivy", 50, Profession.AGROTECH);
+        Guerrero g1 = new Guerrero(Tipo.RUNNER);
 
-        colonia.addPersonaje(minero1);
-        colonia.addPersonaje(minero2);
-        colonia.addPersonaje(agro1);
-        colonia.addPersonaje(fixer1);
+        colonia.addPersonaje(t1);
+        colonia.addPersonaje(t2);
+        colonia.addPersonaje(g1);
 
-        // 🔹 CREAR GUERREROS
-        Guerrero runner1 = new Guerrero(Tipo.RUNNER);
-        Guerrero chopper1 = new Guerrero(Tipo.CHOPPER);
-
-        colonia.addPersonaje(runner1);
-        colonia.addPersonaje(chopper1);
-
+        // Guardar en BD
+        colonia.guardarPersonajesEnBD();
+        
+        //cargar personajes desde bbdd
+        colonia.cargarPersonajesDesdeBD();
+        
         // 🔹 CREAR EDIFICIOS
         Edificio mina = new Edificio(TipoEdificio.MINA_NEOCROMO);
         Edificio granja = new Edificio(TipoEdificio.GRANJA_KROMAFRUTA);
         Edificio lab = new Edificio(TipoEdificio.LAB_NANOCURA);
 
-        // 🔹 ASIGNAR TRABAJADORES
-        mina.addTrabajador(minero1);
-        mina.addTrabajador(minero2);
-
-        granja.addTrabajador(agro1);
-
-        lab.addTrabajador(fixer1);
+        
 
         colonia.addEdificio(mina);
         colonia.addEdificio(granja);
         colonia.addEdificio(lab);
 
-        // 🔹 MOSTRAR ESTADO INICIAL
-        colonia.mostrarEstado();
+        //Asignar trabajadores automaticamente
+        for (Personaje p : colonia.getPoblacion()) {
 
+            if (p instanceof Trabajador t) {
+
+                switch (t.getProfession()) {
+
+                    case GRINDER -> mina.addTrabajador(t);
+                    case AGROTECH -> granja.addTrabajador(t);
+                    case FIXER -> lab.addTrabajador(t);
+                    default -> {}
+                }
+            }
+        }
         // 🔹 SIMULAR UN DÍA
         colonia.simularDia();
+        colonia.guardarRecursosEnBD();
+
 
         // 🔹 MOSTRAR RECURSOS GENERADOS
+        colonia.mostrarEstado();
         colonia.getRecursos().verRecursos();
     }
 }
