@@ -1,81 +1,58 @@
-import Personaje.Personaje;
 import Personaje.Civil.Trabajador;
 import Personaje.Civil.Trabajador.Profession;
 import Personaje.Guerrero.Guerrero;
 import Personaje.Guerrero.Guerrero.Tipo;
-import recursos.Recursos;
-import recursos.Recursos.ResourceType;
+import edificio.Edificio;
+import edificio.Edificio.TipoEdificio;
 
 public class GameMain {
 
     public static void main(String[] args) {
 
-        System.out.println("=== BIENVENIDO A CYBERPUNK PLANET ===\n");
+        Colonia colonia = new Colonia();
 
-        // 1️⃣ Crear colonia
-        Population colonia = new Population();
+        // 🔹 CREAR TRABAJADORES
+        Trabajador minero1 = new Trabajador("Neo", 50, Profession.GRINDER);
+        Trabajador minero2 = new Trabajador("Axel", 50, Profession.GRINDER);
+        Trabajador agro1 = new Trabajador("Ivy", 50, Profession.AGROTECH);
+        Trabajador fixer1 = new Trabajador("Hex", 50, Profession.FIXER);
 
-        // 2️⃣ Crear trabajadores
-        Trabajador neo = new Trabajador("Neo", 50, Profession.GRINDER);
-        Trabajador ivy = new Trabajador("Ivy", 50, Profession.GRINDER);
-        Trabajador hex = new Trabajador("Hex", 50, Profession.AGROTECH);
+        colonia.addPersonaje(minero1);
+        colonia.addPersonaje(minero2);
+        colonia.addPersonaje(agro1);
+        colonia.addPersonaje(fixer1);
 
-        // Asignar recursos (esto simula la UI del jugador)
-        neo.assignResource(ResourceType.NEOCROMO);
-        ivy.assignResource(ResourceType.UMBRIUM);
-        hex.assignResource(ResourceType.KROMAFRUTA);
+        // 🔹 CREAR GUERREROS
+        Guerrero runner1 = new Guerrero(Tipo.RUNNER);
+        Guerrero chopper1 = new Guerrero(Tipo.CHOPPER);
 
-        colonia.addPjs(neo);
-        colonia.addPjs(ivy);
-        colonia.addPjs(hex);
+        colonia.addPersonaje(runner1);
+        colonia.addPersonaje(chopper1);
 
-        // 3️⃣ Crear guerreros
-        Guerrero runner = new Guerrero(Tipo.RUNNER);
-        Guerrero chopper = new Guerrero(Tipo.CHOPPER);
+        // 🔹 CREAR EDIFICIOS
+        Edificio mina = new Edificio(TipoEdificio.MINA_NEOCROMO);
+        Edificio granja = new Edificio(TipoEdificio.GRANJA_KROMAFRUTA);
+        Edificio lab = new Edificio(TipoEdificio.LAB_NANOCURA);
 
-        colonia.addPjs(runner);
-        colonia.addPjs(chopper);
+        // 🔹 ASIGNAR TRABAJADORES
+        mina.addTrabajador(minero1);
+        mina.addTrabajador(minero2);
 
-        // 4️⃣ Crear almacén de recursos del día
-        Recursos recursos = new Recursos();
+        granja.addTrabajador(agro1);
 
-        System.out.println("Simulando Día 1...\n");
+        lab.addTrabajador(fixer1);
 
-        // 5️⃣ Producción diaria
-        for (Personaje p : colonia.getPersonajes()) {
+        colonia.addEdificio(mina);
+        colonia.addEdificio(granja);
+        colonia.addEdificio(lab);
 
-            if (p instanceof Trabajador t && t.getAssignedResource() != null) {
-                int producido = t.getProduccion();
-                recursos.add(t.getAssignedResource(), producido);
+        // 🔹 MOSTRAR ESTADO INICIAL
+        colonia.mostrarEstado();
 
-                System.out.println(
-                    "Trabajador " + t.getNombre() +
-                    " produjo " + producido +
-                    " de " + t.getAssignedResource()
-                );
-            }
+        // 🔹 SIMULAR UN DÍA
+        colonia.simularDia();
 
-            if (p instanceof Guerrero g && g.getDisponible()) {
-
-                if (g.getTipo() == Tipo.RUNNER) {
-                    int explorado = g.explorar(4); // 4 horas
-                    recursos.add(ResourceType.EXPLORACION, explorado);
-
-                    System.out.println(
-                        "Runner " + g.getNombre() +
-                        " exploró y obtuvo " + explorado + " puntos"
-                    );
-                }
-            }
-        }
-
-        // 6️⃣ Fin del día: mostrar resumen
-        System.out.println("\n=== RESUMEN DEL DÍA ===");
-        recursos.verRecursos();
-
-        System.out.println("\nEstado de la colonia:");
-        colonia.showStatus();
-
-        System.out.println("\n=== FIN DEL DÍA 1 ===");
+        // 🔹 MOSTRAR RECURSOS GENERADOS
+        colonia.getRecursos().verRecursos();
     }
 }

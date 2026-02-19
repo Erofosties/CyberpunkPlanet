@@ -25,11 +25,7 @@ public class Recursos {
 	    NEOCROMO,UMBRIUM,SYNTHERIUM,HEXALIUM,VOIDIUM,KROMAFRUTA,ALGACARNE,NEUROTRIGO,
 	    RATAX,FLORSOMNIO,REFLEXA,NANOCURA,SOMNEX,EXPLORACION}
 	
-	//Constructor
-	public Recursos() {
-		super();
-		
-	}
+	
 	public void add(ResourceType type, int amount) {
 	    switch (type) {
 	        case NEOCROMO -> Neocromo += amount;

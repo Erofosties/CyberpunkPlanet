@@ -18,6 +18,8 @@ public abstract class Personaje {
     public String getNombre() {
         return nombre;
     }
-    
+    public int getVida() {
+        return vida;
+    }
     
 }

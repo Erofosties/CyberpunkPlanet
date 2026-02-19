@@ -1,14 +1,3 @@
-/*Se desea representar a los personajes que pueden combatir.
-
-Crea una clase Guerrero que herede de Personaje.
-
-Un guerrero debe tener:
-
-un valor de combate
-
-un método que devuelva su poder de combate
-
-Implementa un constructor adecuado y los métodos necesarios.*/
 package Personaje.Guerrero;
 import java.util.Map;
 import java.util.Random;
@@ -81,8 +70,7 @@ public class Guerrero extends Personaje{
 	//Seleccion de nombre aleatorio segun cada tipo de guerrero
 	private static String selectNombre(Tipo tipo) {
 		String[] nombres = STATS_BASE.get(tipo).nombres;
-		Random random = new Random();
-		return nombres[random.nextInt(nombres.length)];
+		return nombres[new Random().nextInt(nombres.length)];		
 		}
 	
 
@@ -103,7 +91,7 @@ public class Guerrero extends Personaje{
 	
 	
 	public Tipo getTipo() {return tipo;}
-	
+	public boolean isDisponible() {return disponible;}
 	
 	public int explorar(int tiempo) {
 		if (tipo != Tipo.RUNNER){
